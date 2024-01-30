@@ -1,0 +1,18 @@
+import 'package:bedtime_story_ai/models/example_story.dart';
+
+class ExampleStories {
+  List<ExampleStory> exampleStories = [
+    ExampleStory(
+        title: '"A Cat and a Dog become Friends"',
+        text:
+            'Once upon a time, in a land far away, There lived a cat and a dog, who didn\'t like to play. They\'d hiss and they\'d bark, and they\'d growl and they\'d meow, Until one day, something happened, and they didn\'t know how. The cat was out strolling, when she saw a mouse, And the dog was chasing butterflies, all around the house. They both saw each other, and stopped in their tracks, And something strange happened, that they couldn\'t quite grasp. They looked at each other, with curiosity and awe, And decided to approach, with their paws and their claws. The cat said, "Hello, I\'m Fluffy, what\'s your name?" The dog replied, "I\'m Biscuit, nice to meet you, the same." They talked and they laughed, and they played all day, And at night, they slept, snuggled up in the hay. They became the best of friends, in just one day, And nothing could ever, tear them away. So if you see a cat and a dog, who don\'t get along, Just remember this story, and sing this song. For friendship can happen, in the most unlikely way, And it can last forever, come what may.'),
+    ExampleStory(
+        title: '"The Ox and the Hound"',
+        text:
+            'Once upon a time, in a faraway land, Lived an ox and a hound, oh so grand! They were the best of friends, you see, And did everything together, just like you and me. The ox was big and strong and slow, While the hound was quick and agile, you know. But they both loved to play and have fun, Under the bright and shining sun. One day, as they romped through the fields, They stumbled upon a treasure that yields. A chest full of gold and jewels so rare, And they couldn\'t believe their luck, oh so fair! But as they tried to lift the chest up high, They realized it was too heavy to fly. So they decided to share it with all, And threw a party, a grand ball! All the animals came from far and wide, To celebrate the friendship that never died. And they danced and sang all through the night, Under the stars, oh so bright! And as the sun began to rise, The ox and the hound rubbed their eyes. It was time to go to bed and rest, And dream of the fun they had, the best! So snuggle up tight, my little dear, And remember this story, oh so clear. For friendship is the greatest treasure of all, And it will never let you fall!'),
+    ExampleStory(
+        title: '"Running through the Forest"',
+        text:
+            'Running through the forest, on a moonlit night, Was a little mouse, so full of fright. He scampered and scurried, with all his might, For he knew that danger was lurking in sight. With a rustle and a crunch, he heard a sound, And he knew that something was creeping around. He looked left and right, but nothing he found, Until he saw a shadow, looming on the ground. It was a fox, with a grin so wide, And the little mouse knew he had to hide. He darted and dodged, from side to side, But the fox was quick, and he couldn\'t abide. Just when it seemed like all was lost, The little mouse saw a tree, at a cost. He climbed up high, without a pause, And the fox was left, with just his jaws. The little mouse breathed a sigh of relief, And he knew that he had escaped the thief. He settled in his nest, so soft and neat, And he slept soundly, with a heart so sweet. So if you\'re ever running through the forest at night, Just remember to stay out of sight. For danger may be lurking, with all its might, But with a little bit of cunning, you\'ll be alright.'),
+  ];
+}
