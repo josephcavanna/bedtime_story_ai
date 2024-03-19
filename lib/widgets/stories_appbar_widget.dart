@@ -26,46 +26,53 @@ class _StoriesAppbarWidgetState extends State<StoriesAppbarWidget> {
           );
         } else {
           final stories = snapshot.data!;
-          return ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              Color color = Colors.transparent;
-              Color textColor = Colors.white;
-              final story = stories[index];
-              final title = story['title'];
-              return StaggeredFadeTransition(
-                index: index,
-                child: Container(
-                  margin: const EdgeInsets.all(7),
-                  decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.8),
-                    borderRadius: BorderRadius.circular(10),
+          return stories.length == 0
+              ? const ListTile(
+                  title: Text(
+                    'Go to your stories to add a favorite!',
+                    style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
-                  child: ListTile(
-                      minVerticalPadding: 0.0,
-                      iconColor: color,
-                      textColor: textColor,
-                      tileColor: color,
-                      title: Text(
-                        title,
-                        style: const TextStyle(fontSize: 14),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => StoryScreen(
-                              storyTitle: story['title'],
-                              storyText: story['text'],
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    Color color = Colors.transparent;
+                    Color textColor = Colors.white;
+                    final story = stories[index];
+                    final title = story['title'];
+                    return StaggeredFadeTransition(
+                      index: index,
+                      child: Container(
+                        margin: const EdgeInsets.all(7),
+                        decoration: BoxDecoration(
+                          color: Colors.blue.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: ListTile(
+                            minVerticalPadding: 0.0,
+                            iconColor: color,
+                            textColor: textColor,
+                            tileColor: color,
+                            title: Text(
+                              title,
+                              style: const TextStyle(fontSize: 14),
                             ),
-                          ),
-                        );
-                      }),
-                ),
-              );
-            },
-            itemCount: stories.length,
-          );
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (_, __, ___) => StoryScreen(
+                                    storyTitle: story['title'],
+                                    storyText: story['text'],
+                                  ),
+                                ),
+                              );
+                            }),
+                      ),
+                    );
+                  },
+                  itemCount: stories.length,
+                );
         }
       },
     );
@@ -88,7 +95,6 @@ class _StoriesAppbarWidgetState extends State<StoriesAppbarWidget> {
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: favoriteStories(),
               ),
-              
               const Divider(
                 color: Colors.white,
               ),

@@ -44,4 +44,10 @@ class Auth {
   resetPassword(String email) async {
     await supabase.auth.resetPasswordForEmail(email);
   }
+
+  Future<void>updatePassword(String password) async {
+    await supabase.auth.updateUser(
+      UserAttributes(password: password), // UserAttributes(
+      );
+  }
 }

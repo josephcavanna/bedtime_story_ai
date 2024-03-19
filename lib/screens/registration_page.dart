@@ -1,4 +1,5 @@
 import 'package:bedtime_story_ai/screens/prompt_page.dart';
+import 'package:bedtime_story_ai/widgets/form_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:bedtime_story_ai/services/auth.dart';
 
@@ -14,34 +15,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _auth = Auth();
-
-  formField(String labelText, TextEditingController controller) {
-    return TextField(
-      style: const TextStyle(color: Colors.white),
-      controller: controller,
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue[700]!),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white.withOpacity(0.3)),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        border: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        labelText: labelText,
-        labelStyle: const TextStyle(color: Colors.white),
-      ),
-      obscureText: labelText == 'Password' ? true : false,
-    );
-  }
+  final formFieldWidget = FormFieldWidget();
 
   _signUp() {
     final email = _emailController.text;
-    print(email);
     final password = _passwordController.text;
     _auth.signUp(email, password);
   }
@@ -54,11 +31,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            formField('Email', _emailController),
+            formFieldWidget.formField('Email', _emailController),
             const SizedBox(
               height: 20,
             ),
-            formField('Password', _passwordController),
+            formFieldWidget.formField('Password', _passwordController),
             const SizedBox(
               height: 10,
             ),

@@ -2,6 +2,8 @@ import 'package:bedtime_story_ai/screens/prompt_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bedtime_story_ai/services/auth.dart';
 
+import '../widgets/form_field_widget.dart';
+
 class SignInPage extends StatefulWidget {
   static const String id = 'signin_page';
   const SignInPage({super.key});
@@ -14,31 +16,8 @@ class _SignInPageState extends State<SignInPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _auth = Auth();
+  final formFieldWidget = FormFieldWidget();
   bool _isLoading = false;
-
-  formField(String labelText, TextEditingController controller) {
-    return TextField(
-      style: const TextStyle(color: Colors.white),
-      controller: controller,
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue[700]!),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black.withOpacity(0.3)),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        border: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        labelText: labelText,
-        labelStyle: const TextStyle(color: Colors.white),
-      ),
-      obscureText: labelText == 'Password' ? true : false,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +28,11 @@ class _SignInPageState extends State<SignInPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                formField('Email', _emailController),
+                formFieldWidget.formField('Email', _emailController),
                 const SizedBox(
                   height: 20,
                 ),
-                formField('Password', _passwordController),
+                formFieldWidget.formField('Password', _passwordController),
                 const SizedBox(
                   height: 10,
                 ),
@@ -96,28 +75,42 @@ class _SignInPageState extends State<SignInPage> {
                 TextButton(
                     onPressed: () {
                       final email = _emailController.text;
-                      email.isEmpty
-                          ? showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('Please enter your email'),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () => Navigator.pop(context),
-                                      child: const Text('OK'))
-                                ],
-                              ),
-                            )
-                          :
+                      if (email.isEmpty) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Please enter your email'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text('OK'))
+                            ],
+                          ),
+                        );
+                      } else if (!email.contains('@')) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Please enter a valid email'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text('OK'))
+                            ],
+                          ),
+                        );
+                      } else {
                           _auth.resetPassword(email);
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                              content: Text('Password reset email sent'),
-                              duration: Duration(milliseconds: 2000),
-                              backgroundColor: Colors.red,
-                            ));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'A password reset link has been sent to your email'),
+                            ),
+                          );
+                     
+                      }
                     },
-                    child: const Text('Forgot Password?')),
+                    child: const Text('Forgot Password?'))
               ],
             ),
           ))

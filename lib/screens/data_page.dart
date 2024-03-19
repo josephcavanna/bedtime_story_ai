@@ -1,4 +1,5 @@
 import 'package:bedtime_story_ai/screens/initial_page.dart';
+import 'package:bedtime_story_ai/screens/prompt_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bedtime_story_ai/services/auth.dart';
 
@@ -59,21 +60,26 @@ class DataPage extends StatelessWidget {
               width: double.infinity,
               child: MaterialButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => AlertDialog(
-                    title: const Text('Are you sure?'),
-                    content: const Text('Do you want to delete all stories?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(false),
-                        child: const Text('No'),
-                      ),
-                      TextButton(
-                        onPressed: () => auth.deleteAllStories(),
-                        child: const Text('Yes'),
-                      ),
-                    ],
-                  ),);
-                  
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Are you sure?'),
+                      content: const Text('Do you want to delete all stories?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: const Text('No'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            auth.deleteAllStories();
+                            Navigator.of(context).popUntil(ModalRoute.withName(PromptPage.id));
+                          },
+                          child: const Text('Yes'),
+                        ),
+                      ],
+                    ),
+                  );
                 },
                 child: const Text(
                   'Delete All Stories',
@@ -93,20 +99,24 @@ class DataPage extends StatelessWidget {
               width: double.infinity,
               child: MaterialButton(
                 onPressed: () {
-                  showDialog(context: context, builder: (context) => AlertDialog(
-                    title: const Text('Are you sure?'),
-                    content: const Text('Do you want to delete your account?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(false),
-                        child: const Text('No'),
-                      ),
-                      TextButton(
-                        onPressed: () =>  deleteAccount(),
-                        child: const Text('Yes'),
-                      ),
-                    ],
-                  ),);
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Are you sure?'),
+                      content:
+                          const Text('Do you want to delete your account?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: const Text('No'),
+                        ),
+                        TextButton(
+                          onPressed: () => deleteAccount(),
+                          child: const Text('Yes'),
+                        ),
+                      ],
+                    ),
+                  );
                 },
                 child: const Text(
                   'Delete Account',

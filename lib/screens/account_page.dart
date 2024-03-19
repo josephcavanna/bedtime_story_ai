@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:bedtime_story_ai/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/language_selection.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AccountPage extends StatefulWidget {
   static const String id = 'account_page';
@@ -18,8 +19,17 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final languageSelection = LanguageSelection();
+  final version = 'v1.0.0';
+  final url = 'https://www.privacypolicies.com/live/f0bc7c1e-176e-453b-b250-7d62bf808a3b';
   String? language;
   bool isReset = false;
+
+  Future<void> launchPrivacyPolicy() async {
+    final urlParsed = Uri.parse(url);
+    if (!await launchUrl(urlParsed)) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   getStoredLanguage() async {
     final SharedPreferences prefs = await _prefs;
@@ -104,11 +114,14 @@ class _AccountPageState extends State<AccountPage> {
               SettingsMenuItem(
                 title: 'Email',
                 icon: Icons.email,
-                trailing: Text(
-                  auth.userEmail(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: fontSize,
+                trailing: Padding(
+                  padding: const EdgeInsets.only(right: 14.0),
+                  child: Text(
+                    auth.userEmail(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: fontSize,
+                    ),
                   ),
                 ),
               ),
@@ -180,53 +193,32 @@ class _AccountPageState extends State<AccountPage> {
               color: Colors.grey[800],
             ),
             width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.language,
-                        color: Colors.white,
-                        size: iconSize,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Story Language',
-                        style:
-                            TextStyle(color: Colors.white, fontSize: fontSize),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                  child: FittedBox(
-                    child: DropdownMenu(
-                      menuStyle: MenuStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.grey[600]!),
-                      ),
-                      trailingIcon:
-                          const Icon(Icons.expand_sharp, color: Colors.grey),
-                      textStyle:
-                          const TextStyle(color: Colors.grey, fontSize: 20),
-                      dropdownMenuEntries:
-                          languageSelection.dropDownMenuEntries(),
-                      initialSelection: initialLanguage,
-                      onSelected: (value) => setState(() {
-                        _prefs.then((SharedPreferences prefs) {
-                          prefs.setString('language', value.toString());
-                        });
-                      }),
+            child: SettingsMenuItem(
+              icon: Icons.language,
+              title: 'Story Language',
+              trailing: SizedBox(
+                height: 50,
+                child: FittedBox(
+                  child: DropdownMenu(
+                    menuStyle: MenuStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.grey[600]!),
                     ),
+                    trailingIcon:
+                        const Icon(Icons.expand_sharp, color: Colors.grey),
+                    textStyle:
+                        const TextStyle(color: Colors.grey, fontSize: 20),
+                    dropdownMenuEntries:
+                        languageSelection.dropDownMenuEntries(),
+                    initialSelection: initialLanguage,
+                    onSelected: (value) => setState(() {
+                      _prefs.then((SharedPreferences prefs) {
+                        prefs.setString('language', value.toString());
+                      });
+                    }),
                   ),
                 ),
-              ],
+              ),
             ),
           ),
           const SizedBox(
@@ -245,54 +237,28 @@ class _AccountPageState extends State<AccountPage> {
             width: double.infinity,
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 14.0),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.lock_outline_sharp,
-                        color: Colors.white,
-                        size: iconSize,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Privacy Policy',
-                        style:
-                            TextStyle(color: Colors.white, fontSize: fontSize),
-                      ),
-                    ],
+                SettingsMenuItem(
+                  icon: Icons.lock_outline_sharp,
+                  title: 'Privacy Policy',
+                  trailing: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_forward_ios_sharp,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      launchPrivacyPolicy();
+                    },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 14.0),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.menu_book_rounded,
-                        color: Colors.white,
-                        size: iconSize,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Bedtime Story AI',
-                        style:
-                            TextStyle(color: Colors.white, fontSize: fontSize),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'v1.0.0',
-                        style:
-                            TextStyle(color: Colors.grey, fontSize: fontSize),
-                      ),
-                    ],
+                SettingsMenuItem(
+                  icon: Icons.menu_book_rounded,
+                  title: 'Bedtime Story AI',
+                  trailing: Padding(
+                    padding: const EdgeInsets.only(right: 14.0),
+                    child: Text(
+                      version,
+                      style: const TextStyle(color: Colors.grey),
+                    ),
                   ),
                 ),
               ],

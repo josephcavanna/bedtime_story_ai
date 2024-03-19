@@ -14,7 +14,7 @@ class SettingsMenuItem extends StatelessWidget {
     return SizedBox(
       height: 55,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 0.0),
+        padding: const EdgeInsets.only(left: 14.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
