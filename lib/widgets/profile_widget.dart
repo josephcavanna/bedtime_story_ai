@@ -56,7 +56,7 @@ class ProfileWidget extends StatelessWidget {
                   width: double.infinity,
                   child: const Material(
                     color: Colors.transparent,
-                    child: AccountPage(),
+                    child: SingleChildScrollView(child: AccountPage()),
                   ),
                 ),
               ),

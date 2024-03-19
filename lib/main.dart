@@ -10,12 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/services.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   const url = 'https://fgnapsdwhjqqfoafbvzn.supabase.co';
-
   await Supabase.initialize(url: url, anonKey: supabaseApiKey);
   runApp(const MyApp());
 }
@@ -26,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,  
       title: 'Bedtime Story AI',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white),
         ),
       ),
-      initialRoute: InitialPage.id, 
+      initialRoute: InitialPage.id,
       routes: {
         InitialPage.id: (context) => const InitialPage(),
         PromptPage.id: (context) => const PromptPage(),

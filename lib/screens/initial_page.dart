@@ -17,16 +17,16 @@ class _InitialPageState extends State<InitialPage> {
 
   final _tabs = const {
     'tabs': [
-       Tab(
-        text: 'Register',
-      ),
       Tab(
         text: 'Sign In',
       ),
+      Tab(
+        text: 'Register',
+      ),
     ],
     'pages': [
-       RegistrationPage(),
       SignInPage(),
+      RegistrationPage(),
     ]
   };
 
@@ -51,35 +51,37 @@ class _InitialPageState extends State<InitialPage> {
       length: _tabs.length,
       child: Scaffold(
         backgroundColor: Colors.blue[300],
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('lib/images/book_artwork7.png'),
-                fit: BoxFit.cover),
-          ),
+        body: SingleChildScrollView(
           child: Container(
-            color: Colors.black.withOpacity(0.6),
-            height: MediaQuery.of(context).size.height * 0.5,
-            child: Padding(
-              padding: const EdgeInsets.all(38.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TabBar(
-                    dividerColor: color[300],
-                    labelColor: Colors.white,
-                    unselectedLabelColor: Colors.white.withOpacity(0.5),
-                    indicatorColor: color[800],
-                    tabs: _tabs['tabs']!,
-                  ),
-                  SizedBox(
-                    height: 350,
-                    child: TabBarView(
-                      children: _tabs['pages']!,
+            height: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('lib/images/book_artwork7.png'),
+                  fit: BoxFit.cover),
+            ),
+            child: Container(
+              color: Colors.black.withOpacity(0.6),
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: Padding(
+                padding: const EdgeInsets.all(38.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TabBar(
+                      dividerColor: color[300],
+                      labelColor: Colors.white,
+                      unselectedLabelColor: Colors.white.withOpacity(0.5),
+                      indicatorColor: color[800],
+                      tabs: _tabs['tabs']!,
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 350,
+                      child: TabBarView(
+                        children: _tabs['pages']!,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

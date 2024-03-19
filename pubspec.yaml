@@ -54,7 +54,9 @@ flutter_native_splash:
 
 flutter_launcher_icons:
   android: true
+  android_gravity: fill
   ios: true
+  ios_content_mode: scaleAspectFit
   image_path: "lib/images/appstore.png"
 
 dev_dependencies:

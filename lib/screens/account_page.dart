@@ -20,11 +20,11 @@ class _AccountPageState extends State<AccountPage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final languageSelection = LanguageSelection();
   final version = 'v1.0.0';
-  final url = 'https://www.privacypolicies.com/live/f0bc7c1e-176e-453b-b250-7d62bf808a3b';
+  final privacyPolicyUrl = 'https://www.privacypolicies.com/live/f0bc7c1e-176e-453b-b250-7d62bf808a3b';
   String? language;
   bool isReset = false;
 
-  Future<void> launchPrivacyPolicy() async {
+  Future<void> sendtoUrl(String url) async {
     final urlParsed = Uri.parse(url);
     if (!await launchUrl(urlParsed)) {
       throw Exception('Could not launch $url');
@@ -130,17 +130,7 @@ class _AccountPageState extends State<AccountPage> {
                 icon: Icons.lock_outline_sharp,
                 trailing: TextButton(
                   onPressed: () {
-                    auth.resetPassword(auth.userEmail());
-                    setState(() {
-                      isReset = true;
-                    });
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        duration: Duration(milliseconds: 1500),
-                        content: Text('Reset password email sent'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
+                    sendtoUrl('https://jcavanna.dev/forgot_password');
                   },
                   child: Icon(resetIcon, color: Colors.grey),
                 ),
@@ -246,13 +236,13 @@ class _AccountPageState extends State<AccountPage> {
                       color: Colors.grey,
                     ),
                     onPressed: () {
-                      launchPrivacyPolicy();
+                      sendtoUrl(privacyPolicyUrl);
                     },
                   ),
                 ),
                 SettingsMenuItem(
                   icon: Icons.menu_book_rounded,
-                  title: 'Bedtime Story AI',
+                  title: 'Goodnight Story AI',
                   trailing: Padding(
                     padding: const EdgeInsets.only(right: 14.0),
                     child: Text(
