@@ -19,7 +19,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final languageSelection = LanguageSelection();
-  final version = 'v1.0.0';
+  final version = 'v1.0.1';
   final privacyPolicyUrl = 'https://www.privacypolicies.com/live/f0bc7c1e-176e-453b-b250-7d62bf808a3b';
   String? language;
   bool isReset = false;
