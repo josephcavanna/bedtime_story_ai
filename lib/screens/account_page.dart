@@ -20,7 +20,7 @@ class _AccountPageState extends State<AccountPage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final languageSelection = LanguageSelection();
   final version = 'v1.0.1';
-  final privacyPolicyUrl = 'https://www.privacypolicies.com/live/f0bc7c1e-176e-453b-b250-7d62bf808a3b';
+  final privacyPolicyUrl = 'https://github.com/josephcavanna/bedtime_story_ai/blob/3a59cb00445daf21c7e08295a7b782cf45643d0e/privacy-policy.md';
   String? language;
   bool isReset = false;
 
