@@ -26,7 +26,7 @@ class _AccountPageState extends State<AccountPage> {
 
   Future<void> sendtoUrl(String url) async {
     final urlParsed = Uri.parse(url);
-    if (!await launchUrl(urlParsed)) {
+    if (!await launchUrl(urlParsed, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }
   }

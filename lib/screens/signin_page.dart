@@ -1,6 +1,7 @@
 import 'package:bedtime_story_ai/screens/prompt_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bedtime_story_ai/services/auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/form_field_widget.dart';
 
@@ -18,6 +19,13 @@ class _SignInPageState extends State<SignInPage> {
   final _auth = Auth();
   final formFieldWidget = FormFieldWidget();
   bool _isLoading = false;
+
+  Future<void> sendtoUrl(String url) async {
+    final urlParsed = Uri.parse(url);
+    if (!await launchUrl(urlParsed, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,43 +82,8 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 TextButton(
                     onPressed: () {
-                      final email = _emailController.text;
-                      if (email.isEmpty) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Please enter your email'),
-                            actions: [
-                              TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text('OK'))
-                            ],
-                          ),
-                        );
-                      } else if (!email.contains('@')) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Please enter a valid email'),
-                            actions: [
-                              TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text('OK'))
-                            ],
-                          ),
-                        );
-                      } else {
-                          _auth.resetPassword(email);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  'A password reset link has been sent to your email'),
-                            ),
-                          );
-                     
-                      }
-                    },
-                    child: const Text('Forgot Password?'))
+                      sendtoUrl('https://jcavanna.dev/forgot_password');
+                    }, child: const Text('Forgot Password?'))
               ],
             ),
           ))
