@@ -188,7 +188,7 @@ class _PromptPageState extends State<PromptPage> {
                               textAlign: TextAlign.left,
                               decoration: const InputDecoration(
                                 isDense: true,
-                                contentPadding: EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                                contentPadding: EdgeInsets.all(20),
                                 filled: false,
                                 hintText: 'Enter a story title',
                                 hintStyle: TextStyle(
