@@ -19,12 +19,19 @@ class _SignInPageState extends State<SignInPage> {
   final _auth = Auth();
   final formFieldWidget = FormFieldWidget();
   bool _isLoading = false;
+  bool obscurePassword = true;
 
   Future<void> sendtoUrl(String url) async {
     final urlParsed = Uri.parse(url);
     if (!await launchUrl(urlParsed, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }
+  }
+
+  void toggleObscurePassword() {
+    setState(() {
+      obscurePassword = !obscurePassword;
+    });
   }
 
   @override
@@ -34,13 +41,26 @@ class _SignInPageState extends State<SignInPage> {
             child: Padding(
             padding: const EdgeInsets.all(18.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                formFieldWidget.formField('Email', _emailController),
                 const SizedBox(
                   height: 20,
                 ),
-                formFieldWidget.formField('Password', _passwordController),
+                formFieldWidget.formField(
+                    label: 'Email',
+                    controller: _emailController,
+                    obscure: false,
+                    showToggle: false,
+                    context: context),
+                const SizedBox(
+                  height: 20,
+                ),
+                formFieldWidget.formField(
+                    label: 'Password',
+                    controller: _passwordController,
+                    obscure: obscurePassword,
+                    showToggle: true,
+                    toggle: toggleObscurePassword,
+                    context: context),
                 const SizedBox(
                   height: 10,
                 ),
@@ -83,13 +103,17 @@ class _SignInPageState extends State<SignInPage> {
                 TextButton(
                     onPressed: () {
                       sendtoUrl('https://jcavanna.dev/forgot_password');
-                    }, child: const Text('Forgot Password?'))
+                    },
+                    child: const Text('Forgot Password?'))
               ],
             ),
           ))
         : const Center(
             child: SizedBox(
-                width: 50, height: 50, child: CircularProgressIndicator()),
+              width: 50,
+              height: 50,
+              child: CircularProgressIndicator(),
+            ),
           );
   }
 }

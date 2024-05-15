@@ -1,4 +1,4 @@
-package com.example.bedtime_story_ai
+package dev.jcavanna.bedtime_story_ai
 
 import io.flutter.embedding.android.FlutterActivity
 

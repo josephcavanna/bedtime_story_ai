@@ -2,7 +2,6 @@ import 'package:bedtime_story_ai/screens/story_screen.dart';
 import 'package:bedtime_story_ai/widgets/example_stories_widget.dart';
 import 'package:bedtime_story_ai/widgets/profile_widget.dart';
 import 'package:bedtime_story_ai/widgets/stories_appbar_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -55,7 +54,7 @@ class _PromptPageState extends State<PromptPage> {
           role: Role.user,
           content:
               "Using the following sentence: $title, write me a children's bedtime story in the style of Roald Dahl in $language that rhymes.",
-        ),
+  ).toJson(),
       ],
       model: GptTurbo0301ChatModel(),
       maxToken: 350,

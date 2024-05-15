@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bedtime_story_ai">
+    package="dev.jcavanna.bedtime_story_ai">
     <!-- Required to fetch data from the internet. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="bedtime_story_ai"
+        android:label="Goodnight Story"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -13,6 +13,7 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
+            android:enableOnBackInvokedCallback="true"
             android:windowSoftInputMode="adjustResize">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
@@ -25,6 +26,8 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />

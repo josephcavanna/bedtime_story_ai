@@ -16,11 +16,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _passwordController = TextEditingController();
   final _auth = Auth();
   final formFieldWidget = FormFieldWidget();
+  bool obscurePassword = true;
 
   _signUp() {
     final email = _emailController.text;
     final password = _passwordController.text;
     _auth.signUp(email, password);
+  }
+
+  void toggleObscurePassword() {
+    setState(() {
+      obscurePassword = !obscurePassword;
+    });
   }
 
   @override
@@ -29,13 +36,28 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            formFieldWidget.formField('Email', _emailController),
+            const SizedBox(
+                  height: 20,
+                ),
+            formFieldWidget.formField(
+              label: 'Email',
+              controller: _emailController,
+              obscure: false,
+              showToggle: false,
+              context: context,
+            ),
             const SizedBox(
               height: 20,
             ),
-            formFieldWidget.formField('Password', _passwordController),
+            formFieldWidget.formField(
+              label: 'Password',
+              controller: _passwordController,
+              obscure: obscurePassword,
+              showToggle: true,
+              toggle: toggleObscurePassword,
+              context: context,
+            ),
             const SizedBox(
               height: 10,
             ),
